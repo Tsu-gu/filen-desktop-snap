@@ -8,7 +8,7 @@ description: |
   Windows, macOS and Linux platforms.
 
 grade: stable
-confinement: devmode
+confinement: strict
 
 parts:
   filen:
