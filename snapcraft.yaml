@@ -42,6 +42,8 @@ parts:
       - glib-networking-common
       - gsettings-desktop-schemas
       - libgdk-pixbuf2.0-0
+      - alsa-utils
+      - libasound2-plugins
 
 apps:
   filen:
@@ -51,7 +53,8 @@ apps:
       HOME: "$SNAP_USER_COMMON"
       TMPDIR: "$SNAP_USER_DATA/tmp"
       ELECTRON_DISABLE_SANDBOX: "1"
-      LD_LIBRARY_PATH: $SNAP/usr/lib/x86_64-linux-gnu/oss4-libsalsa:$LD_LIBRARY_PATH
+      LD_LIBRARY_PATH: $SNAP/usr/lib/x86_64-linux-gnu/liboss4-salsa:$LD_LIBRARY_PATH
+      ALSA_CONFIG_PATH: $SNAP/etc/asound.conf
     plugs:
       - network
       - network-bind
