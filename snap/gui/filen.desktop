@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Filen 
+Exec=filen
+Icon=${SNAP}/meta/gui/filen.png
+Comment=Filen Cloud
+Terminal=false
+Type=Application
+MimeType=x-content/unix-software;
