@@ -1,4 +1,4 @@
-name: filen
+name: filen-desktop-tsugu
 base: core24
 version: '3.0.47'
 summary: Filen Desktop Client for Windows, macOS and Linux 
@@ -11,7 +11,7 @@ grade: stable
 confinement: strict
 
 parts:
-  filen:
+  filen-desktop-tsugu:
     source: https://github.com/FilenCloudDienste/filen-desktop/releases/download/v${SNAPCRAFT_PROJECT_VERSION}/Filen_linux_amd64.deb
     plugin: dump
     source-type: deb
@@ -47,8 +47,8 @@ parts:
       - libasound2-plugins
 
 apps:
-  filen:
-    command: opt/Filen/filendesktop --no-sandbox
+  filen-desktop-tsugu:
+    command: opt/Filen/filendesktop --no-sandbox --disable-dev-shm-usage
     extensions: [gnome]
     environment:
       HOME: "$SNAP_USER_COMMON"
@@ -71,3 +71,6 @@ apps:
       - desktop-legacy
       - audio-playback
       - password-manager-service
+      - x11
+      - wayland
+      - unity7
