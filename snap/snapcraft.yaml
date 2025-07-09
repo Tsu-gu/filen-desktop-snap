@@ -1,0 +1,73 @@
+name: filen
+base: core24
+version: '3.0.47'
+summary: Filen Desktop Client for Windows, macOS and Linux 
+description: |
+  Filen is a secure cloud storage desktop client that provides 
+  end-to-end encrypted file storage and synchronization across 
+  Windows, macOS and Linux platforms.
+
+grade: stable
+confinement: strict
+
+parts:
+  filen:
+    source: https://github.com/FilenCloudDienste/filen-desktop/releases/download/v${SNAPCRAFT_PROJECT_VERSION}/Filen_linux_amd64.deb
+    plugin: dump
+    source-type: deb
+    organize:
+      opt/Filen/@filendesktop: opt/Filen/filendesktop
+    stage-packages:
+      - libgtk-3-0
+      - libnotify4
+      - libnss3
+      - libnspr4
+      - libxss1
+      - libxtst6
+      - xdg-utils
+      - libatspi2.0-0
+      - libuuid1
+      - libsecret-1-0
+      - libgbm1
+      - libasound2
+      - liboss4-salsa2
+      - libpulse0
+      - libfuse3-3
+      - libproxy1v5
+      - libproxy1-plugin-gsettings
+      - libproxy1-plugin-networkmanager
+      - libglib2.0-0
+      - librsvg2-2
+      - librsvg2-common
+      - glib-networking
+      - glib-networking-common
+      - gsettings-desktop-schemas
+      - libgdk-pixbuf2.0-0
+      - alsa-utils
+      - libasound2-plugins
+
+apps:
+  filen:
+    command: opt/Filen/filendesktop --no-sandbox
+    extensions: [gnome]
+    environment:
+      HOME: "$SNAP_USER_COMMON"
+      TMPDIR: "$SNAP_USER_DATA/tmp"
+      ELECTRON_DISABLE_SANDBOX: "1"
+      LD_LIBRARY_PATH: >
+       $SNAP/usr/lib/x86_64-linux-gnu/libproxy:
+       $SNAP/usr/lib/x86_64-linux-gnu/oss4-libsalsa:
+       $SNAP/usr/lib/x86_64-linux-gnu:
+       $SNAP/opt/Filen:
+       $LD_LIBRARY_PATH
+      GIO_EXTRA_MODULES: $SNAP/usr/lib/x86_64-linux-gnu/gio/modules
+      ALSA_CONFIG_PATH: $SNAP/etc/asound.conf
+    plugs:
+      - network
+      - network-bind
+      - home
+      - removable-media
+      - desktop
+      - desktop-legacy
+      - audio-playback
+      - password-manager-service
