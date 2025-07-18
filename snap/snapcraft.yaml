@@ -10,9 +10,18 @@ description: |
 grade: stable
 confinement: strict
 
+platforms:
+  amd64:
+  arm64:
+
+lint:
+  ignore:
+    - classic
+    - library
+
 parts:
   filen-desktop-tsugu:
-    source: https://github.com/FilenCloudDienste/filen-desktop/releases/download/v${SNAPCRAFT_PROJECT_VERSION}/Filen_linux_amd64.deb
+    source: https://github.com/FilenCloudDienste/filen-desktop/releases/download/v${SNAPCRAFT_PROJECT_VERSION}/Filen_linux_${CRAFT_ARCH_BUILD_FOR}.deb
     plugin: dump
     source-type: deb
     organize:
@@ -45,7 +54,6 @@ parts:
       - libgdk-pixbuf2.0-0
       - alsa-utils
       - libasound2-plugins
-
 apps:
   filen-desktop-tsugu:
     command: opt/Filen/filendesktop --no-sandbox --disable-dev-shm-usage
@@ -55,12 +63,12 @@ apps:
       TMPDIR: "$SNAP_USER_DATA/tmp"
       ELECTRON_DISABLE_SANDBOX: "1"
       LD_LIBRARY_PATH: >
-       $SNAP/usr/lib/x86_64-linux-gnu/libproxy:
-       $SNAP/usr/lib/x86_64-linux-gnu/oss4-libsalsa:
-       $SNAP/usr/lib/x86_64-linux-gnu:
+       $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libproxy:
+       $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/oss4-libsalsa:
+       $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:
        $SNAP/opt/Filen:
        $LD_LIBRARY_PATH
-      GIO_EXTRA_MODULES: $SNAP/usr/lib/x86_64-linux-gnu/gio/modules
+      GIO_EXTRA_MODULES: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/gio/modules
       ALSA_CONFIG_PATH: $SNAP/etc/asound.conf
     plugs:
       - network
